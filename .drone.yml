@@ -59,3 +59,40 @@ steps:
       tags:
         - SNAPSHOT-${DRONE_BRANCH}
     <<: *when_dev
+
+  - name: terraform-0.11.14-terragrunt-0.18.7_dev
+    image: plugins/docker
+    settings:
+      dockerfile: terraform-0.11.14-terragrunt-0.18.7/Dockerfile
+      username: karimlamouri
+      password:
+        from_secret: docker_password
+      repo: karimlamouri/terraform-0.11.14-terragrunt-0.18.7
+      tags:
+        - SNAPSHOT-${DRONE_BRANCH}
+    <<: *when_dev
+
+  - name: terraform-0.11.14-terragrunt-0.18.7_prod
+    image: plugins/docker
+    settings:
+      dockerfile: terraform-0.11.14-terragrunt-0.18.7/Dockerfile
+      username: karimlamouri
+      password:
+        from_secret: docker_password
+      repo: karimlamouri/terraform-0.11.14-terragrunt-0.18.7
+      tags:
+        - latest
+        - ${DRONE_TAG##v}
+    <<: *when_release
+
+  - name: terraform-0.11.14-terragrunt-0.18.7_stage
+    image: plugins/docker
+    settings:
+      dockerfile: terraform-0.11.14-terragrunt-0.18.7/Dockerfile
+      username: karimlamouri
+      password:
+        from_secret: docker_password
+      repo: karimlamouri/terraform-0.11.14-terragrunt-0.18.7
+      tags:
+        - stage
+    <<: *when_stage
